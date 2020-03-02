@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
-class Cfa extends CI_Controller
+class Offre extends CI_Controller
  {
 
 		public function __construct(){
@@ -38,13 +38,35 @@ class Cfa extends CI_Controller
 		}
 
 
-		public function souscrire() 
+		public function debutant($periode="",$action="") 
 		{
-			$this->Cfa_model->get_offre();
+			
+			if(!empty($periode)){
+				if($periode ==='semaine'){
+					if(!empty($action)){
+						if($action ==='confirme'){
 
-			$data['offre_montant']=$this->Cfa_model->offre_montant();
-			$data['offre_m']=$this->Cfa_model->offre_montant();
-			$this->load->view('view_souscrire',$data);
+							
+						$data['offre_periode']=$periode;
+						$this->load->view('vi_debutant_accueil',$data);
+						}
+					}		
+
+
+					$data['offre_periode']=$periode;
+					$this->load->view('v_debut_semaine_accueil',$data);
+				}
+				if($periode ==='mois'){
+					$data['offre_periode']=$periode;
+					$this->load->view('v_debut_mois_accueil',$data);
+				}
+			}else{
+				$data['offre']='debutant';
+				$this->load->view('v_debut_semaine_accueil',$data);
+			}
+
+
+			
 		}	
 		public function souscrire_confirm() {
 
